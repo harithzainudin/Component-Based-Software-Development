@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Register Bank</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+                <!--Header Layout-->
+                <p:layoutUnit position="north" size="50" resizable="true" closable="true" collapsible="true">
+                    Register And Edit Bank
+                </p:layoutUnit>
+
+                <!--Menu Layout-->
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <h:form>
+                    <p:menu>
+                        <p:submenu label="Navigation">
+                            <p:menuitem value="Bank" outcome="bankView"/>
+                            <p:menuitem value="Transaction" outcome="transactionView" />
+                            <p:menuitem value="Chart" outcome="chartView" />
+                            <p:menuitem value="Overview" outcome="tableView" />
+                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                            <p:menuitem value="Logout" action="#{transacController.logout}" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+                </p:layoutUnit>
+
+                <!--Center Layout-->
+                <p:layoutUnit position="center">
+                    <h1>Bank Account List</h1>
+                    <h:form>
+                        <p:outputLabel for="banknameInput" value="Bank Name : "/>
+                        <p:inputText id="banknameInput" value="#{bankController.bankname}"/>
+                        <p:commandButton value="Save Bank" update="messageOutput"/>
+                        <br></br>
+                        <h:outputText id="messageOutput" value="#{bankController.insertBankname()}"/>
+                        <br></br>
+                    </h:form>
+
+                    <h1>View Current Bank List</h1>
+                    <p:commandButton value="Refresh List" update="listTable"/>
+                    <br></br>
+                    <br></br>
+                    <p:dataTable id="listTable" var="data" value="#{bankController.banklist}">
+                        <p:column headerText="ID">
+                            #{data.id}
+                        </p:column>
+                        <p:column headerText="Bank Name">
+                            #{data.bankname}
+                        </p:column>
+                    </p:dataTable>
+
+                    <h:form>
+                        <h1>Edit or Delete Bank</h1>
+                        <p:outputLabel for="bankid" value="Enter ID: "/>
+                        <p:inputText id="bankid" value="#{bankController.idholder}"/>
+                        <p:outputLabel for="bankname" value="Enter Bankname: "/>
+                        <p:inputText id="bankname" value="#{bankController.nameholder}"/>
+                        <br></br>
+                        <p:commandButton value="Edit" update="editsuccess"/>
+                        <h:outputText id="editsuccess" value="#{bankController.editBank()}"/>
+                        <br></br>
+                        <p:commandButton value="Delete" update="deletesuccess"/>
+                        <h:outputText id="deletesuccess" value="#{bankController.deleteBank()}"/>
+                    </h:form>
+                </p:layoutUnit>
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+

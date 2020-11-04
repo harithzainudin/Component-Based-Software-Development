@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <title>Web Expenses Tracker</title>
+        <style>
+            .content{
+                max-width: 400px;
+                margin: auto;
+                background: white;
+                padding: 10px;
+            }
+        </style>
+    </h:head>
+
+    <h:body>
+        <div class="content">
+            <h:form>
+                <p:outputPanel deferred="true">
+                    <h2>WEB EXPENSES TRACKER</h2>
+                </p:outputPanel>
+                <p:panel id="panel" header="Login to your account" style="margin-bottom: 10px;">
+                    <p:messages/>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username"  required="true" value="#{loginController.username}"/>
+
+                        <p:outputLabel for="password" value="Password:" />
+                        <p:inputText id="password"  required="true" value="#{loginController.password}"/>
+
+                        <p:commandButton value="Login" action="#{loginController.loginAccount}" style="margin-right:20px;" ajax="false"></p:commandButton>
+                    </h:panelGrid>
+
+                    <p:outputPanel deferred="true" style="margin-top: 10px">
+                        <p:link outcome="registerView" value="Dont have an account? Register now!"></p:link>
+                    </p:outputPanel>
+
+                </p:panel>
+
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>Transaction</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <h:body>
+        <p:layout fullPage="true"> 
+            <!--Header Layout-->
+            <p:layoutUnit position="north" size="50" resizable="true" closable="true" collapsible="true">
+                Register And Delete Transaction
+            </p:layoutUnit>
+
+            <!--Menu Layout-->
+            <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <h:form>
+                    <p:menu>
+                        <p:submenu label="Navigation">
+                            <p:menuitem value="Bank" outcome="bankView"/>
+                            <p:menuitem value="Transaction" outcome="transactionView" />
+                            <p:menuitem value="Chart" outcome="chartView" />
+                            <p:menuitem value="Overview" outcome="tableView" />
+                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                            <p:menuitem value="Logout" action="#{transacController.logout}" />
+                        </p:submenu>
+                    </p:menu>
+                </h:form>
+            </p:layoutUnit>
+            
+            <!--Center Layout-->
+            <p:layoutUnit position="center">
+                <div>
+                    <h1>Bank List</h1>
+                    <p:dataTable id="listTable" var="data" value="#{bankController.banklist}">
+                        <p:column headerText="ID">
+                            #{data.id}
+                        </p:column>
+                        <p:column headerText="Bank Name">
+                            #{data.bankname}
+                        </p:column>
+                    </p:dataTable>
+                </div>
+
+                <h:form>
+                    <h1>Please Select Bank to View Transaction List</h1>
+                    <p:outputLabel for="idbankinput" value="ID:"/>
+                    <p:inputText id="idbankinput" value="#{transacController.bankid}" style="padding: 8px"/>
+                    <p:commandButton value="Select Bank ID" update="selected"/>
+                    <h:outputText id="selected" value="#{transacController.bankid}"/>
+                
+                <br></br>
+                <br></br>
+                <p:commandButton value="Refresh List" update="TransacList"/>
+                <p:dataTable id="TransacList" var="bean" value="#{transacController.translist}">
+                    <p:column headerText="ID">
+                        #{bean.id}
+                    </p:column>
+                    <p:column headerText="Transaction Detail">
+                        #{bean.detail}
+                    </p:column>
+                    <p:column headerText="Amount">
+                        #{bean.amount}
+                    </p:column>
+                    <p:column headerText="Date">
+                        #{bean.tarikh}
+                    </p:column>
+                    <p:column headerText="Type">
+                        #{bean.transaktype}
+                    </p:column>
+                </p:dataTable>
+                
+                <h1>Add Transaction</h1>
+                <h:form>
+                    <p:outputLabel for="amountText" value="Amount: "/>
+                    <p:inputText id="amountText" value="#{transacController.amount}"/>
+                    <p:outputLabel for="detailMenu" value="Detail: "/>
+                    <p:selectOneMenu id="detailMenu" value="#{transacController.detail}">
+                        <f:selectItem itemLabel="Food" itemValue="Food"/>
+                        <f:selectItem itemLabel="Entertainment" itemValue="Entertainment"/>
+                        <f:selectItem itemLabel="Commitment" itemValue="Commitemnt"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="transaksiType" value="Type: "/>
+                    <p:selectOneMenu id="transaksiType" value="#{transacController.transakType}">
+                        <f:selectItem itemLabel="Income" itemValue="Income"/>
+                        <f:selectItem itemLabel="Expenses" itemValue="Expenses"/>
+                    </p:selectOneMenu>
+                    <p:outputLabel for="tarikh" value="Date: "/>
+                    <p:calendar id="tarikh" value="#{transacController.tarikh}"/>
+                    <br></br>
+                    <p:commandButton value="Add Transaction" update="addStatus"/>
+                    <h:outputText id="addStatus" value="#{transacController.addTransaction()}"/>
+                </h:form>
+                 </h:form>
+                <h1>Delete Transaction</h1>
+                <h:form>
+                    <p:outputLabel for="transid" value="Enter ID: "/>
+                    <p:inputText id="transid" value="#{transacController.transid}"/>
+                    <br></br>
+                    <p:commandButton value="Delete" update="Transdeletesuccess"/>
+                    <h:outputText id="Transdeletesuccess" value="#{transacController.deleteTrans()}"/>
+                </h:form>
+               
+            </p:layoutUnit>
+        </p:layout>
+    </h:body>
+</html>

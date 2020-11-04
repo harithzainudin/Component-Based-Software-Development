@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <title>Web Expenses Tracker</title>
+        <style>
+            .content{
+                max-width: 400px;
+                margin: auto;
+                background: white;
+                padding: 10px;
+            }
+        </style>
+    </h:head>
+    <h:body>    
+        <div class="content">
+            <h:form>
+                <p:outputPanel deferred="true">
+                    <p>Just a few step to register!</p>
+                </p:outputPanel>
+                <p:panel id="panel" header="Register New Account" style="margin-bottom: 10px;">
+                    <p:messages/>
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username"  required="true" value="#{registerController.username}"/>
+ 
+                        <p:outputLabel for="password" value="Password:" />
+                        <p:inputText id="password"  required="true" value="#{registerController.password}"/>
+                        
+                        <p:commandButton value="Register" style="margin-right:20px;" update="registerStatus"></p:commandButton>
+                        <h:outputText id="registerStatus" value="#{registerController.registerAccount()}" />
+                    </h:panelGrid>
+                    
+                    <p:outputPanel deferred="true" style="margin-top: 10px">
+                        <p:link outcome="loginView" value="Already have an account? Login"></p:link>
+                    </p:outputPanel>
+                    
+                </p:panel>
+                
+             </h:form>
+        </div>
+    </h:body>
+</html>
+
